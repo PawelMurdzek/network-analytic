@@ -31,7 +31,7 @@ from visualizations import NetworkVisualizer
 
 # %%
 # Wczytanie przepływów z pliku PCAP
-pcap_file = "proj/data/demo_traffic.pcap"
+pcap_file = "data/demo_traffic.pcap"
 analyzer = FlowAnalyzer(pcap_file)
 flows_df = analyzer.load_flows()
 
@@ -118,7 +118,7 @@ if not alerts_df.empty:
 # %%
 # Wczytanie reguł Sigma
 sigma_engine = SigmaRuleEngine()
-sigma_engine.load_rules_from_directory("proj/detection_rules/")
+sigma_engine.load_rules_from_directory("detection_rules/")
 
 # Uruchomienie detekcji Sigma
 sigma_alerts = sigma_engine.run_detection(flows_df)

@@ -283,7 +283,7 @@ def generate_traffic(output_file, count, malicious):
     click.echo(f"Plik wyjściowy: {output_file}\n")
     
     click.echo("⚠ Ta funkcja wymaga implementacji z użyciem scapy")
-    click.echo("Przykładowy skrypt znajduje się w: proj/simulate_traffic.py")
+    click.echo("Przykładowy skrypt znajduje się w: simulate_traffic.py")
 
 
 if __name__ == '__main__':

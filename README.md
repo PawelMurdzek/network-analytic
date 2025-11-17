@@ -51,7 +51,7 @@ System analizy sieciowej wykorzystujący:
 ## 📁 Struktura projektu
 
 ```
-proj/
+
 ├── data/                          # Pliki PCAP do analizy
 ├── detection_rules/               # Reguły detekcyjne
 │   ├── detection_rules.py         # Reguły Detection as a Code (D.1)

@@ -24,8 +24,8 @@ sys.path.append('./proj')
 from simulate_traffic import create_demo_pcap_with_alerts, create_normal_traffic_pcap
 
 # Generowanie plików
-create_demo_pcap_with_alerts("proj/data/demo_traffic.pcap")
-create_normal_traffic_pcap("proj/data/normal_traffic.pcap")
+create_demo_pcap_with_alerts("data/demo_traffic.pcap")
+create_normal_traffic_pcap("data/normal_traffic.pcap")
 
 print("Pliki demonstracyjne zostały utworzone!")
 
@@ -49,7 +49,7 @@ from detection_rules.detection_rules import create_default_detection_engine
 from visualizations import NetworkVisualizer
 
 # Wczytanie PCAP
-analyzer = FlowAnalyzer("proj/data/demo_traffic.pcap")
+analyzer = FlowAnalyzer("data/demo_traffic.pcap")
 flows = analyzer.load_flows()
 stats = analyzer.get_flow_statistics()
 
@@ -217,3 +217,5 @@ for req, status in requirements.items():
 
 print("="*60)
 print("\n🎉 Wszystkie wymagania spełnione!")
+
+# %%

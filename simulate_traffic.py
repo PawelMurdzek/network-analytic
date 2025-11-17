@@ -267,6 +267,6 @@ if __name__ == "__main__":
     create_demo_pcap_with_alerts("../data/demo_traffic.pcap")
     create_normal_traffic_pcap("../data/normal_traffic.pcap")
     
-    print("\nPliki demonstracyjne zostały utworzone w katalogu proj/data/")
+    print("\nPliki demonstracyjne zostały utworzone w katalogu data/")
     print("\nAby przetestować system, uruchom:")
     print("  python netanalyzer.py analyze data/demo_traffic.pcap -o ./test_output")
