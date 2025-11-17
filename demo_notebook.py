@@ -286,14 +286,14 @@ try:
             
             # Zapisanie mapy
             m.save('geo_map.html')
-            print("✅ Mapa geograficzna zapisana jako geo_map.html")
+            print("Mapa geograficzna zapisana jako geo_map.html")
         else:
-            print("⚠️ Brak danych geolokalizacyjnych do wizualizacji")
+            print("Brak danych geolokalizacyjnych do wizualizacji")
     else:
-        print("⚠️ Brak kolumn z geolokalizacją")
+        print("Brak kolumn z geolokalizacją")
         
 except ImportError:
-    print("⚠️ Biblioteka folium niedostępna - pomijanie mapy geograficznej")
+    print("Biblioteka folium niedostępna - pomijanie mapy geograficznej")
 
 # %% [markdown]
 # ## Krok 10 - Predykcja na nowych danych
@@ -339,20 +339,20 @@ if 'application_name' in flows_df.columns:
 # Ten notebook zademonstrował wszystkie wymagania projektu:
 # 
 # ### Lab 2 - Must-have:
-# - ✅ **A.1** - Wczytywanie PCAP z NFStream
-# - ✅ **A.2** - Statystyki przepływów
-# - ✅ **D.1** - Reguły detekcyjne w Pythonie
-# - ✅ **V.1** - Wizualizacje alertów
+# - **A.1** - Wczytywanie PCAP z NFStream
+# - **A.2** - Statystyki przepływów
+# - **D.1** - Reguły detekcyjne w Pythonie
+# - **V.1** - Wizualizacje alertów
 # 
 # ### Projekt 2 - Must-have:
-# - ✅ **D.2** - Reguły Sigma
-# - ✅ **ML.1** - Klasyfikacja ML
-# - ✅ **ML.2** - Metryki (FPR, TPR, macierz konfuzji)
-# - ✅ **ML.3** - Predykcja na nowych danych
-# - ✅ **E.1** - Threat Intelligence enrichment
+# - **D.2** - Reguły Sigma
+# - **ML.1** - Klasyfikacja ML
+# - **ML.2** - Metryki (FPR, TPR, macierz konfuzji)
+# - **ML.3** - Predykcja na nowych danych
+# - **E.1** - Threat Intelligence enrichment
 # 
 # ### Nice-to-have:
-# - ✅ **V.2** - Mapa geograficzna
+# - **V.2** - Mapa geograficzna
 
 # %%
 print("\n" + "="*60)

@@ -182,7 +182,7 @@ def analyze(pcap_file, output, detect, ml, enrich, visualize, report, sigma_rule
         
     except Exception as e:
         logger.error(f"Błąd podczas analizy: {e}", exc_info=True)
-        click.echo(f"\n❌ Błąd: {e}", err=True)
+        click.echo(f"\nBłąd: {e}", err=True)
         sys.exit(1)
 
 
@@ -220,7 +220,7 @@ def stats(pcap_file):
             )
         
     except Exception as e:
-        click.echo(f"❌ Błąd: {e}", err=True)
+        click.echo(f"Błąd: {e}", err=True)
         sys.exit(1)
 
 
@@ -262,7 +262,7 @@ def train_model(training_data, output, tune):
         click.echo(f"\n✓ Model zapisany: {output}")
         
     except Exception as e:
-        click.echo(f"❌ Błąd: {e}", err=True)
+        click.echo(f"Błąd: {e}", err=True)
         sys.exit(1)
 
 

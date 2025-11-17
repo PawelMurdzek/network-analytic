@@ -497,7 +497,7 @@ class ReportGenerator:
         """Buduje sekcję z podsumowaniem spełnionych wymagań."""
         html = """
         <div class="section">
-            <h2>✅ Podsumowanie Spełnionych Wymagań</h2>
+            <h2>Podsumowanie Spełnionych Wymagań</h2>
             
             <h3>Lab 2 - Funkcjonalności Podstawowe (Must-have)</h3>
             <table>
@@ -512,22 +512,22 @@ class ReportGenerator:
                     <tr>
                         <td><strong>A.1</strong></td>
                         <td>Wczytywanie plików PCAP przy użyciu NFStream</td>
-                        <td>✅ Spełnione</td>
+                        <td>Spełnione</td>
                     </tr>
                     <tr>
                         <td><strong>A.2</strong></td>
                         <td>Podsumowanie statystyk flow</td>
-                        <td>✅ Spełnione</td>
+                        <td>Spełnione</td>
                     </tr>
                     <tr>
                         <td><strong>D.1</strong></td>
                         <td>Implementacja reguł detekcyjnych w Pythonie</td>
-                        <td>✅ Spełnione</td>
+                        <td>Spełnione</td>
                     </tr>
                     <tr>
                         <td><strong>V.1</strong></td>
                         <td>Wykres liczby wykrytych zagrożeń</td>
-                        <td>✅ Spełnione</td>
+                        <td>Spełnione</td>
                     </tr>
                 </tbody>
             </table>
@@ -545,27 +545,27 @@ class ReportGenerator:
                     <tr>
                         <td><strong>D.2</strong></td>
                         <td>Wczytywanie reguł w formacie Sigma</td>
-                        <td>✅ Spełnione</td>
+                        <td>Spełnione</td>
                     </tr>
                     <tr>
                         <td><strong>ML.1</strong></td>
                         <td>Klasyfikacja flow za pomocą ML</td>
-                        <td>{'✅ Spełnione' if ml_metrics else '⚠️ Niepełne'}</td>
+                        <td>{'Spełnione' if ml_metrics else 'Niepełne'}</td>
                     </tr>
                     <tr>
                         <td><strong>ML.2</strong></td>
                         <td>Redukcja FPR, metryki jakości (FPR, TPR)</td>
-                        <td>{'✅ Spełnione' if ml_metrics and 'fpr' in ml_metrics else '⚠️ Niepełne'}</td>
+                        <td>{'Spełnione' if ml_metrics and 'fpr' in ml_metrics else 'Niepełne'}</td>
                     </tr>
                     <tr>
                         <td><strong>ML.3</strong></td>
                         <td>Możliwość trenowania modelu na nowych danych</td>
-                        <td>✅ Spełnione</td>
+                        <td>Spełnione</td>
                     </tr>
                     <tr>
                         <td><strong>E.1</strong></td>
                         <td>Enrichment IP/domen (Threat Intelligence)</td>
-                        <td>✅ Spełnione</td>
+                        <td>Spełnione</td>
                     </tr>
                 </tbody>
             </table>
@@ -583,7 +583,7 @@ class ReportGenerator:
                     <tr>
                         <td><strong>V.2</strong></td>
                         <td>Mapa geograficzna z lokalizacją podejrzanych IP</td>
-                        <td>✅ Zaimplementowane</td>
+                        <td>Zaimplementowane</td>
                     </tr>
                 </tbody>
             </table>

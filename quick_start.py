@@ -27,7 +27,7 @@ from simulate_traffic import create_demo_pcap_with_alerts, create_normal_traffic
 create_demo_pcap_with_alerts("proj/data/demo_traffic.pcap")
 create_normal_traffic_pcap("proj/data/normal_traffic.pcap")
 
-print("✅ Pliki demonstracyjne zostały utworzone!")
+print("Pliki demonstracyjne zostały utworzone!")
 
 # %% [markdown]
 # ## 3. Podstawowa analiza z CLI
@@ -141,7 +141,7 @@ report_path = report_gen.generate_html_report(
     visualizations=viz_paths
 )
 
-print(f"\n✅ Raport HTML wygenerowany: {report_path}")
+print(f"\nRaport HTML wygenerowany: {report_path}")
 
 # %% [markdown]
 # ## 8. Dodawanie własnych reguł detekcyjnych

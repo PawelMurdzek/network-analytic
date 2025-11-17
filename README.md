@@ -25,26 +25,26 @@ System analizy sieciowej wykorzystujący:
 
 | ID | Wymaganie | Status |
 |---|---|---|
-| **A.1** | Wczytywanie plików PCAP przy użyciu NFStream | ✅ |
-| **A.2** | Wyświetlanie podsumowania statystyk flow | ✅ |
-| **D.1** | Implementacja reguł detekcyjnych w Pythonie | ✅ |
-| **V.1** | Wykres liczby wykrytych zagrożeń | ✅ |
+| **A.1** | Wczytywanie plików PCAP przy użyciu NFStream |
+| **A.2** | Wyświetlanie podsumowania statystyk flow |
+| **D.1** | Implementacja reguł detekcyjnych w Pythonie |
+| **V.1** | Wykres liczby wykrytych zagrożeń |
 
 ### Projekt 2 - Funkcjonalności zaawansowane (Must-have)
 
 | ID | Wymaganie | Status |
 |---|---|---|
-| **D.2** | Wczytywanie reguł Sigma | ✅ |
-| **ML.1** | Klasyfikacja flow za pomocą ML | ✅ |
-| **ML.2** | Redukcja FPR, metryki jakości (TPR, FPR, macierz konfuzji) | ✅ |
-| **ML.3** | Możliwość trenowania modelu na nowych danych | ✅ |
-| **E.1** | Enrichment IP/domen (geolokalizacja, reputacja) | ✅ |
+| **D.2** | Wczytywanie reguł Sigma |
+| **ML.1** | Klasyfikacja flow za pomocą ML |
+| **ML.2** | Redukcja FPR, metryki jakości (TPR, FPR, macierz konfuzji) |
+| **ML.3** | Możliwość trenowania modelu na nowych danych |
+| **E.1** | Enrichment IP/domen (geolokalizacja, reputacja) |
 
 ### Funkcjonalności Nice-to-have
 
 | ID | Wymaganie | Status |
 |---|---|---|
-| **V.2** | Mapa geograficzna z lokalizacją podejrzanych IP | ✅ |
+| **V.2** | Mapa geograficzna z lokalizacją podejrzanych IP |
 
 ---
 
@@ -236,13 +236,13 @@ reports/
 from flow_analyzer import FlowAnalyzer
 
 analyzer = FlowAnalyzer("data/demo_traffic.pcap")
-flows = analyzer.load_flows()  # ✅ Wczytanie z NFStream
+flows = analyzer.load_flows()  # Wczytanie z NFStream
 ```
 
 ### Wymaganie A.2 - Statystyki flow
 ```python
 stats = analyzer.get_flow_statistics()
-# ✅ Zwraca: total_flows, unique_ips, total_packets, 
+# Zwraca: total_flows, unique_ips, total_packets, 
 #            avg_packets_per_flow, top_host_pairs, etc.
 ```
 
@@ -251,7 +251,7 @@ stats = analyzer.get_flow_statistics()
 from detection_rules.detection_rules import create_default_detection_engine
 
 engine = create_default_detection_engine()
-alerts = engine.run_detection(flows)  # ✅ Reguły w Pythonie
+alerts = engine.run_detection(flows)  # Reguły w Pythonie
 ```
 
 ### Wymaganie D.2 - Reguły Sigma
@@ -260,7 +260,7 @@ from detection_rules.sigma_handler import SigmaRuleEngine
 
 sigma_engine = SigmaRuleEngine()
 sigma_engine.load_rules_from_directory("detection_rules/")
-alerts = sigma_engine.run_detection(flows)  # ✅ Wczytanie Sigma
+alerts = sigma_engine.run_detection(flows)  # Wczytanie Sigma
 ```
 
 ### Wymagania ML.1, ML.2, ML.3 - Machine Learning
@@ -268,13 +268,13 @@ alerts = sigma_engine.run_detection(flows)  # ✅ Wczytanie Sigma
 from models.ml_classifier import NetworkMLClassifier
 
 classifier = NetworkMLClassifier()
-metrics = classifier.train(flows)  # ✅ ML.1 - Klasyfikacja
+metrics = classifier.train(flows)  # ML.1 - Klasyfikacja
 
-# ✅ ML.2 - Metryki FPR, TPR
+# ML.2 - Metryki FPR, TPR
 print(f"FPR: {metrics['fpr']}")
 print(f"TPR: {metrics['tpr']}")
 
-# ✅ ML.3 - Retrenowanie
+# ML.3 - Retrenowanie
 classifier.retrain_with_new_data(new_flows, new_labels)
 ```
 
@@ -283,7 +283,7 @@ classifier.retrain_with_new_data(new_flows, new_labels)
 from threat_intel import ThreatIntelligenceEnricher
 
 enricher = ThreatIntelligenceEnricher()
-enriched = enricher.enrich_flows(flows)  # ✅ Geolokalizacja IP
+enriched = enricher.enrich_flows(flows)  # Geolokalizacja IP
 ```
 
 ### Wymagania V.1, V.2 - Wizualizacje
@@ -291,8 +291,8 @@ enriched = enricher.enrich_flows(flows)  # ✅ Geolokalizacja IP
 from visualizations import NetworkVisualizer
 
 viz = NetworkVisualizer()
-viz.plot_alerts_timeline(alerts)     # ✅ V.1
-viz.create_geo_map(enriched_flows)   # ✅ V.2
+viz.plot_alerts_timeline(alerts)     # V.1
+viz.create_geo_map(enriched_flows)   # V.2
 ```
 
 ---
