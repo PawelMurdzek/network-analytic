@@ -1,0 +1,18 @@
+title: Suspicious Port 4444 Connection
+id: 12345678-1234-1234-1234-123456789012
+description: Detects connections to port 4444 which is commonly used by Metasploit
+author: Security Team
+date: 2024/01/01
+level: high
+logsource:
+  category: network
+  product: flow
+detection:
+  selection:
+    DestinationPort: 4444
+  condition: selection
+falsepositives:
+  - Legitimate applications using port 4444
+tags:
+  - attack.command_and_control
+  - attack.t1071
