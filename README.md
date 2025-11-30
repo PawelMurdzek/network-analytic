@@ -168,7 +168,7 @@ pip install pandas numpy matplotlib seaborn nfstream scapy scikit-learn joblib r
 
 ---
 
-## 💻 Użycie
+## Użycie
 
 ### 1. Generowanie demonstracyjnego ruchu sieciowego
 
@@ -223,7 +223,7 @@ python netanalyzer.py train-model data/demo_traffic.pcap -o models/custom_model.
 
 ---
 
-## 🔍 Funkcjonalności
+## Funkcjonalności
 
 ### Analiza Flow (A.1, A.2)
 - Wczytywanie plików PCAP za pomocą NFStream
