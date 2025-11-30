@@ -3,7 +3,7 @@ Przewodnik szybkiego startu - System Analizy Sieciowej
 """
 
 # %% [markdown]
-# # 🚀 Quick Start Guide - System Analizy Sieciowej
+# # Quick Start Guide - System Analizy Sieciowej
 
 # %% [markdown]
 # ## 1. Instalacja zależności
@@ -200,22 +200,22 @@ print("  WYMAGANIA PROJEKTU")
 print("="*60)
 
 requirements = {
-    "A.1 - Wczytywanie PCAP z NFStream": "✅",
-    "A.2 - Statystyki flow": "✅",
-    "D.1 - Reguły detekcyjne w Pythonie": "✅",
-    "D.2 - Reguły Sigma": "✅",
-    "ML.1 - Klasyfikacja ML": "✅",
-    "ML.2 - Metryki (FPR, TPR)": "✅",
-    "ML.3 - Trenowanie na nowych danych": "✅",
-    "E.1 - Threat Intelligence": "✅",
-    "V.1 - Wizualizacje alertów": "✅",
-    "V.2 - Mapa geograficzna (nice-to-have)": "✅"
+    "A.1 - Wczytywanie PCAP z NFStream": "[OK]",
+    "A.2 - Statystyki flow": "[OK]",
+    "D.1 - Reguly detekcyjne w Pythonie": "[OK]",
+    "D.2 - Reguly Sigma": "[OK]",
+    "ML.1 - Klasyfikacja ML": "[OK]",
+    "ML.2 - Metryki (FPR, TPR)": "[OK]",
+    "ML.3 - Trenowanie na nowych danych": "[OK]",
+    "E.1 - Threat Intelligence": "[OK]",
+    "V.1 - Wizualizacje alertow": "[OK]",
+    "V.2 - Mapa geograficzna (nice-to-have)": "[OK]"
 }
 
 for req, status in requirements.items():
     print(f"{status} {req}")
 
 print("="*60)
-print("\n🎉 Wszystkie wymagania spełnione!")
+print("\nWszystkie wymagania spelnione!")
 
 # %%

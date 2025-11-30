@@ -6,7 +6,7 @@
 
 ---
 
-## 📋 Opis projektu
+## Opis projektu
 
 System analizy sieciowej wykorzystujący:
 - **Analizę przepływów (flow)** z plików PCAP za pomocą NFStream
@@ -19,7 +19,7 @@ System analizy sieciowej wykorzystujący:
 
 ---
 
-## 🎯 Spełnione wymagania
+## Spelnione wymagania
 
 ### Lab 2 - Funkcjonalności podstawowe (Must-have)
 
@@ -48,7 +48,7 @@ System analizy sieciowej wykorzystujący:
 
 ---
 
-## 📁 Struktura projektu
+## Struktura projektu
 
 ```
 
@@ -71,7 +71,7 @@ System analizy sieciowej wykorzystujący:
 
 ---
 
-## 🚀 Instalacja
+## Instalacja
 
 ### Wymagania
 - Python 3.8+
@@ -211,7 +211,7 @@ Zaimplementowane reguły w Pythonie:
 
 ---
 
-## 📊 Przykładowe wyniki
+## Przykladowe wyniki
 
 Po uruchomieniu analizy otrzymasz:
 
@@ -229,7 +229,7 @@ reports/
 
 ---
 
-## 🧪 Demonstracja spełnienia wymagań
+## Demonstracja spelnienia wymagan
 
 ### Wymaganie A.1 - Wczytywanie PCAP z NFStream
 ```python
@@ -377,12 +377,12 @@ Generator symulowanego ruchu do testów
 
 ---
 
-## 👤 Autor
+## Autor
 
 Projekt wykonany w ramach zajęć KRYCY - Politechnika Warszawska
 
 ---
 
-## 📄 Licencja
+## Licencja
 
 Projekt edukacyjny - wykorzystanie zgodnie z polityką uczelni.

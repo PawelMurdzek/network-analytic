@@ -70,7 +70,7 @@ def analyze(pcap_file, output, detect, ml, enrich, visualize, report, sigma_rule
         flows = analyzer.load_flows()
         stats = analyzer.get_flow_statistics()
         
-        click.echo(f"✓ Wczytano {stats['total_flows']} przepływów")
+        click.echo(f"[OK] Wczytano {stats['total_flows']} przeplywow")
         
         # 2. Detekcja zagrożeń
         alerts_df = None
@@ -90,7 +90,7 @@ def analyze(pcap_file, output, detect, ml, enrich, visualize, report, sigma_rule
                 alerts.extend(sigma_alerts)
             
             alerts_df = engine.get_alerts_dataframe()
-            click.echo(f"✓ Wykryto {len(alerts)} alertów")
+            click.echo(f"[OK] Wykryto {len(alerts)} alertow")
         else:
             click.echo("\n[2/6] Pomijanie detekcji zagrożeń")
         
@@ -107,7 +107,7 @@ def analyze(pcap_file, output, detect, ml, enrich, visualize, report, sigma_rule
             model_path = os.path.join(output, 'network_classifier.pkl')
             classifier.save_model(model_path)
             
-            click.echo(f"✓ Model wytrenowany - Accuracy: {ml_metrics['accuracy']:.4f}, FPR: {ml_metrics['fpr']:.4f}")
+            click.echo(f"[OK] Model wytrenowany - Accuracy: {ml_metrics['accuracy']:.4f}, FPR: {ml_metrics['fpr']:.4f}")
         else:
             click.echo("\n[3/6] Pomijanie klasyfikacji ML")
         
@@ -121,7 +121,7 @@ def analyze(pcap_file, output, detect, ml, enrich, visualize, report, sigma_rule
                 enrich_src=False, 
                 enrich_dst=True
             )
-            click.echo(f"✓ Wzbogacono dane")
+            click.echo(f"[OK] Wzbogacono dane")
         else:
             click.echo("\n[4/6] Pomijanie wzbogacania danych")
         
@@ -155,7 +155,7 @@ def analyze(pcap_file, output, detect, ml, enrich, visualize, report, sigma_rule
                 if geo_path:
                     viz_paths['geo_map'] = geo_path
             
-            click.echo(f"✓ Wygenerowano {len(viz_paths)} wizualizacji")
+            click.echo(f"[OK] Wygenerowano {len(viz_paths)} wizualizacji")
         else:
             click.echo("\n[5/6] Pomijanie wizualizacji")
         
@@ -170,7 +170,7 @@ def analyze(pcap_file, output, detect, ml, enrich, visualize, report, sigma_rule
                 ml_metrics=ml_metrics,
                 visualizations=viz_paths
             )
-            click.echo(f"✓ Raport zapisany: {report_path}")
+            click.echo(f"[OK] Raport zapisany: {report_path}")
         else:
             click.echo("\n[6/6] Pomijanie generowania raportu")
         
@@ -259,7 +259,7 @@ def train_model(training_data, output, tune):
         click.echo(f"F1 Score: {metrics['f1_score']:.4f}")
         click.echo(f"False Positive Rate (FPR): {metrics['fpr']:.4f}")
         
-        click.echo(f"\n✓ Model zapisany: {output}")
+        click.echo(f"\n[OK] Model zapisany: {output}")
         
     except Exception as e:
         click.echo(f"Błąd: {e}", err=True)

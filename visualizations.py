@@ -333,6 +333,162 @@ class NetworkVisualizer:
         logger.info(f"Mapa geograficzna zapisana: {save_path}")
         return save_path
     
+    def create_threat_intel_map(
+        self,
+        enriched_flows_df: pd.DataFrame,
+        alerts_df: Optional[pd.DataFrame] = None,
+        save_path: Optional[str] = None
+    ) -> Optional[str]:
+        """
+        Tworzy zaawansowaną mapę Threat Intelligence z połączeniami sieciowymi.
+        
+        Args:
+            enriched_flows_df: DataFrame z przepływami wzbogaconymi o geolokalizację
+            alerts_df: DataFrame z alertami (opcjonalnie - do podświetlenia groźnych)
+            save_path: Ścieżka do zapisu
+            
+        Returns:
+            Ścieżka do zapisanego pliku HTML lub None
+        """
+        if not FOLIUM_AVAILABLE:
+            logger.warning("Biblioteka folium niedostępna")
+            return None
+        
+        # Sprawdzenie kolumn
+        required_cols = ['dst_latitude', 'dst_longitude']
+        if not all(col in enriched_flows_df.columns for col in required_cols):
+            logger.warning("Brak wymaganych kolumn geolokalizacji")
+            return None
+        
+        # Filtrowanie danych z geolokalizacją
+        geo_data = enriched_flows_df[
+            (enriched_flows_df['dst_latitude'].notna()) & 
+            (enriched_flows_df['dst_longitude'].notna())
+        ].copy()
+        
+        if geo_data.empty:
+            logger.warning("Brak danych z geolokalizacją")
+            return None
+        
+        # Utworzenie mapy z ciemnym stylem
+        m = folium.Map(
+            location=[30, 0],
+            zoom_start=2,
+            tiles='CartoDB dark_matter'
+        )
+        
+        # Lokalizacja źródłowa (zakładamy lokalną sieć - Warszawa)
+        src_lat, src_lon = 52.2297, 21.0122  # Warszawa
+        
+        # Dodanie markera źródłowego
+        folium.Marker(
+            location=[src_lat, src_lon],
+            popup='<b>Lokalna sieć</b><br>192.168.x.x',
+            icon=folium.Icon(color='blue', icon='home', prefix='fa')
+        ).add_to(m)
+        
+        # Grupowanie po lokalizacji docelowej
+        location_stats = geo_data.groupby(['dst_latitude', 'dst_longitude']).agg({
+            'dst_ip': 'first',
+            'bidirectional_bytes': 'sum',
+            'bidirectional_packets': 'sum',
+            'dst_country': 'first',
+            'dst_city': 'first',
+            'dst_isp': 'first'
+        }).reset_index()
+        
+        # Kolorowanie na podstawie alertów (jeśli dostępne)
+        suspicious_ips = set()
+        if alerts_df is not None and not alerts_df.empty:
+            if 'src_ip' in alerts_df.columns:
+                suspicious_ips.update(alerts_df['src_ip'].unique())
+            # Wyciągnij IP z wiadomości alertu
+            for msg in alerts_df.get('message', []):
+                if isinstance(msg, str):
+                    import re
+                    ips = re.findall(r'\d+\.\d+\.\d+\.\d+', msg)
+                    suspicious_ips.update(ips)
+        
+        # Dodanie połączeń i markerów
+        for _, row in location_stats.iterrows():
+            dst_lat = row['dst_latitude']
+            dst_lon = row['dst_longitude']
+            dst_ip = row['dst_ip']
+            
+            # Czy to podejrzane IP?
+            is_suspicious = dst_ip in suspicious_ips
+            
+            # Kolor linii i markera
+            color = 'red' if is_suspicious else 'green'
+            weight = 3 if is_suspicious else 1
+            
+            # Linia połączenia (animowana)
+            folium.PolyLine(
+                locations=[[src_lat, src_lon], [dst_lat, dst_lon]],
+                color=color,
+                weight=weight,
+                opacity=0.6,
+                dash_array='5, 10' if not is_suspicious else None
+            ).add_to(m)
+            
+            # Popup z informacjami
+            popup_html = f"""
+            <div style="font-family: Arial; width: 200px;">
+                <h4 style="margin: 0; color: {'red' if is_suspicious else 'green'};">
+                    {'PODEJRZANE' if is_suspicious else 'Normalne'}
+                </h4>
+                <hr>
+                <b>IP:</b> {dst_ip}<br>
+                <b>Kraj:</b> {row.get('dst_country', 'N/A')}<br>
+                <b>Miasto:</b> {row.get('dst_city', 'N/A')}<br>
+                <b>ISP:</b> {row.get('dst_isp', 'N/A')}<br>
+                <hr>
+                <b>Pakiety:</b> {int(row['bidirectional_packets']):,}<br>
+                <b>Bajty:</b> {int(row['bidirectional_bytes']):,}
+            </div>
+            """
+            
+            # Marker docelowy
+            folium.CircleMarker(
+                location=[dst_lat, dst_lon],
+                radius=8 if is_suspicious else 5,
+                popup=folium.Popup(popup_html, max_width=250),
+                color=color,
+                fill=True,
+                fillColor=color,
+                fillOpacity=0.7
+            ).add_to(m)
+        
+        # Dodanie legendy
+        legend_html = """
+        <div style="position: fixed; bottom: 50px; left: 50px; z-index: 1000;
+                    background: white; padding: 15px; border-radius: 5px;
+                    box-shadow: 0 0 10px rgba(0,0,0,0.3);">
+            <h4 style="margin: 0 0 10px 0;">Threat Intelligence Map</h4>
+            <p style="margin: 5px 0;"><span style="color: red;">●</span> Podejrzane połączenie</p>
+            <p style="margin: 5px 0;"><span style="color: green;">●</span> Normalne połączenie</p>
+            <p style="margin: 5px 0;"><span style="color: blue;">●</span> Lokalna sieć</p>
+        </div>
+        """
+        m.get_root().html.add_child(folium.Element(legend_html))
+        
+        # Dodanie tytułu
+        title_html = """
+        <div style="position: fixed; top: 10px; left: 50%; transform: translateX(-50%);
+                    z-index: 1000; background: rgba(0,0,0,0.7); color: white;
+                    padding: 15px 30px; border-radius: 5px; font-family: Arial;">
+            <h2 style="margin: 0;">Network Threat Intelligence Map</h2>
+        </div>
+        """
+        m.get_root().html.add_child(folium.Element(title_html))
+        
+        if save_path is None:
+            save_path = os.path.join(self.output_dir, 'threat_intel_map.html')
+        
+        m.save(save_path)
+        logger.info(f"Mapa Threat Intelligence zapisana: {save_path}")
+        return save_path
+    
     def plot_feature_importance(
         self,
         importance_df: pd.DataFrame,

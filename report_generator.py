@@ -263,7 +263,7 @@ class ReportGenerator:
 <body>
     <div class="container">
         <div class="header">
-            <h1>📊 Raport Analizy Sieciowej</h1>
+            <h1>Raport Analizy Sieciowej</h1>
             <p>System Detection as a Code + ML + Threat Intelligence</p>
             <p>{datetime.now().strftime("%Y-%m-%d %H:%M:%S")}</p>
         </div>
@@ -293,7 +293,7 @@ class ReportGenerator:
         </div>
         
         <div class="footer">
-            <p>🔐 System Analizy Sieciowej - KRYCY Lab 2 + Projekt 2</p>
+            <p>System Analizy Sieciowej - KRYCY Lab 2 + Projekt 2</p>
             <p>Politechnika Warszawska</p>
         </div>
     </div>
@@ -307,7 +307,7 @@ class ReportGenerator:
         """Buduje sekcję ze statystykami przepływów."""
         html = """
         <div class="section">
-            <h2>📈 Statystyki Przepływów <span class="requirement-tag">A.1</span> <span class="requirement-tag">A.2</span></h2>
+            <h2>Statystyki Przeplywow <span class="requirement-tag">A.1</span> <span class="requirement-tag">A.2</span></h2>
             
             <div class="stats-grid">
 """
@@ -371,7 +371,7 @@ class ReportGenerator:
         """Buduje sekcję z alertami."""
         html = f"""
         <div class="section">
-            <h2>🚨 Wykryte Zagrożenia <span class="requirement-tag">D.1</span> <span class="requirement-tag">D.2</span> <span class="requirement-tag">V.1</span></h2>
+            <h2>Wykryte Zagrozenia <span class="requirement-tag">D.1</span> <span class="requirement-tag">D.2</span> <span class="requirement-tag">V.1</span></h2>
             
             <p>Łączna liczba alertów: <strong>{len(alerts)}</strong></p>
             
@@ -426,7 +426,7 @@ class ReportGenerator:
         """Buduje sekcję z metrykami ML."""
         html = f"""
         <div class="section">
-            <h2>🤖 Metryki Modelu Machine Learning <span class="requirement-tag">ML.1</span> <span class="requirement-tag">ML.2</span></h2>
+            <h2>Metryki Modelu Machine Learning <span class="requirement-tag">ML.1</span> <span class="requirement-tag">ML.2</span></h2>
             
             <div class="stats-grid">
                 <div class="stat-card">
@@ -468,7 +468,7 @@ class ReportGenerator:
         """Buduje sekcję z wizualizacjami."""
         html = """
         <div class="section">
-            <h2>📊 Wizualizacje <span class="requirement-tag">V.1</span> <span class="requirement-tag">V.2</span></h2>
+            <h2>Wizualizacje <span class="requirement-tag">V.1</span> <span class="requirement-tag">V.2</span></h2>
 """
         
         for name, path in visualizations.items():
