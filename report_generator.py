@@ -368,14 +368,20 @@ class ReportGenerator:
         return html
     
     def _build_alerts_section(self, alerts: pd.DataFrame) -> str:
-        """Buduje sekcję z alertami."""
+        """Buduje sekcje z alertami."""
+        
+        # Sprawdz zrodlo alertow
+        python_alerts = alerts[~alerts['rule'].str.contains('Sigma|Detection', case=False, na=False)] if 'rule' in alerts.columns else alerts
+        sigma_alerts = alerts[alerts['rule'].str.contains('Sigma|Port|Cobalt|Metasploit|DNS|SMB|RDP|Mining|Tor|SSH|Exfil', case=False, na=False)] if 'rule' in alerts.columns else pd.DataFrame()
+        
         html = f"""
         <div class="section">
             <h2>Wykryte Zagrozenia <span class="requirement-tag">D.1</span> <span class="requirement-tag">D.2</span> <span class="requirement-tag">V.1</span></h2>
             
-            <p>Łączna liczba alertów: <strong>{len(alerts)}</strong></p>
+            <p>Laczna liczba alertow: <strong>{len(alerts)}</strong></p>
+            <p>Alerty Python rules: <strong>{len(python_alerts)}</strong> | Alerty Sigma rules: <strong>{len(sigma_alerts)}</strong></p>
             
-            <h3>Rozkład według poziomu zagrożenia</h3>
+            <h3>Rozklad wedlug poziomu zagrozenia</h3>
             <div class="stats-grid">
 """
         

@@ -1,0 +1,23 @@
+author: Your Name
+date: 2024/11/30
+description: Detects connections to ports commonly used by backdoors
+detection:
+  condition: selection
+  selection:
+    DestinationPort:
+    - 666
+    - 31337
+    - 12345
+    - 54321
+falsepositives:
+- Legitimate applications using these ports
+id: custom-rule-12345
+level: critical
+logsource:
+  category: network
+  product: flow
+status: experimental
+tags:
+- attack.command_and_control
+- attack.t1095
+title: Custom Backdoor Port Detection

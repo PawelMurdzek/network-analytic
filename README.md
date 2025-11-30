@@ -53,10 +53,22 @@ System analizy sieciowej wykorzystujący:
 ```
 
 ├── data/                          # Pliki PCAP do analizy
-├── detection_rules/               # Reguły detekcyjne
-│   ├── detection_rules.py         # Reguły Detection as a Code (D.1)
-│   ├── sigma_handler.py           # Obsługa reguł Sigma (D.2)
-│   └── example_sigma_rule.yml     # Przykładowa reguła Sigma
+├── detection_rules/               # Reguly detekcyjne
+│   ├── detection_rules.py         # Reguly Detection as a Code (D.1)
+│   ├── sigma_handler.py           # Obsluga regul Sigma (D.2)
+│   ├── example_sigma_rule.yml     # Przykladowa regula Sigma
+│   └── sigma_rules/               # Katalog z regulami Sigma
+│       ├── README.md              # Dokumentacja regul Sigma
+│       ├── port_scan_detection.yml
+│       ├── cobalt_strike_beacon.yml
+│       ├── metasploit_reverse_shell.yml
+│       ├── dns_tunneling.yml
+│       ├── smb_lateral_movement.yml
+│       ├── rdp_brute_force.yml
+│       ├── crypto_mining.yml
+│       ├── tor_traffic.yml
+│       ├── data_exfiltration.yml
+│       └── ssh_brute_force.yml
 ├── models/                        # Modele ML
 │   └── ml_classifier.py           # Klasyfikator ML (ML.1, ML.2, ML.3)
 ├── reports/                       # Wygenerowane raporty
@@ -64,9 +76,55 @@ System analizy sieciowej wykorzystujący:
 ├── flow_analyzer.py               # Analiza flow z NFStream (A.1, A.2)
 ├── threat_intel.py                # Threat Intelligence enrichment (E.1)
 ├── visualizations.py              # Generator wizualizacji (V.1, V.2)
-├── report_generator.py            # Generator raportów HTML
-├── netanalyzer.py                 # Główny interfejs CLI
+├── report_generator.py            # Generator raportow HTML
+├── latex_report_generator.py      # Generator raportow LaTeX/PDF
+├── netanalyzer.py                 # Glowny interfejs CLI
 └── simulate_traffic.py            # Generator symulowanego ruchu
+```
+
+---
+
+## Reguly Sigma
+
+System obsluguje reguly detekcyjne w formacie Sigma - otwartym standardzie
+niezaleznym od platformy SIEM. Reguly znajduja sie w katalogu
+`detection_rules/sigma_rules/`.
+
+### Dostepne reguly
+
+| Regula | Opis | Poziom | MITRE ATT&CK |
+|--------|------|--------|--------------|
+| Port Scan | Wykrywanie skanowania portow | Medium | T1046 |
+| Cobalt Strike | Beacony Cobalt Strike C2 | Critical | T1071.001 |
+| Metasploit | Reverse shell na port 4444 | Critical | T1059 |
+| DNS Tunneling | Tunelowanie danych przez DNS | Medium | T1071.004 |
+| SMB Lateral | Ruch boczny przez SMB/445 | High | T1021.002 |
+| RDP Brute Force | Ataki brute force na RDP | High | T1110 |
+| Crypto Mining | Komunikacja z mining pools | High | T1496 |
+| Tor Traffic | Ruch przez siec Tor | Medium | T1090.003 |
+| Data Exfiltration | Duze transfery danych | Low | T1048 |
+| SSH Brute Force | Ataki brute force na SSH | Medium | T1110.001 |
+
+### Dodawanie wlasnych regul
+
+Szczegolowa instrukcja znajduje sie w `detection_rules/sigma_rules/README.md`.
+
+Przyklad reguly:
+
+```yaml
+title: Moja Regula
+id: unique-uuid-here
+description: Opis wykrywanego zagrozenia
+logsource:
+  category: network
+  product: flow
+detection:
+  selection:
+    DestinationPort: 12345
+  condition: selection
+level: high
+tags:
+  - attack.command_and_control
 ```
 
 ---

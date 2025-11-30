@@ -1,0 +1,34 @@
+title: SMB Lateral Movement Detection
+id: e5f6a7b8-5555-6666-7777-888899990000
+status: experimental
+description: |
+  Detects SMB traffic which may indicate lateral movement within the network.
+  Attackers often use SMB for file sharing, remote execution, and spreading malware.
+  MITRE ATT&CK: T1021.002 - Remote Services: SMB/Windows Admin Shares
+author: Security Team
+date: 2024/11/30
+references:
+  - https://attack.mitre.org/techniques/T1021/002/
+  - https://attack.mitre.org/techniques/T1570/
+logsource:
+  category: network
+  product: flow
+detection:
+  selection_smb:
+    DestinationPort:
+      - 445   # SMB
+      - 139   # NetBIOS Session Service
+  condition: selection_smb
+level: high
+tags:
+  - attack.lateral_movement
+  - attack.t1021.002
+  - attack.t1570
+falsepositives:
+  - Legitimate file sharing
+  - Windows domain operations
+  - Print services
+fields:
+  - src_ip
+  - dst_ip
+  - bidirectional_bytes

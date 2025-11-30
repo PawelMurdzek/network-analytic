@@ -1,0 +1,437 @@
+\documentclass[12pt,a4paper]{article}
+
+% Kodowanie i język
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[polish]{babel}
+
+% Marginesy
+\usepackage[margin=2.5cm]{geometry}
+
+% Grafika i tabele
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{colortbl}
+\usepackage{xcolor}
+
+% Matematyka
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% Linki i odnośniki
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    urlcolor=blue,
+    citecolor=blue
+}
+
+% Nagłówki i stopki
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Analiza Ruchu Sieciowego}
+\lhead{\leftmark}
+\rfoot{Strona \thepage}
+
+% Listingi kodu
+\usepackage{listings}
+\lstset{
+    basicstyle=\ttfamily\small,
+    breaklines=true,
+    frame=single,
+    backgroundcolor=\color{gray!10}
+}
+
+% Definicje kolorów
+\definecolor{headerblue}{RGB}{102,126,234}
+\definecolor{alertred}{RGB}{244,67,54}
+\definecolor{alertorange}{RGB}{255,152,0}
+\definecolor{alertgreen}{RGB}{76,175,80}
+
+% Niestandardowe komendy
+\newcommand{\alerthigh}[1]{\colorbox{alertred!20}{\textcolor{alertred}{\textbf{#1}}}}
+\newcommand{\alertmedium}[1]{\colorbox{alertorange!20}{\textcolor{alertorange}{\textbf{#1}}}}
+\newcommand{\alertlow}[1]{\colorbox{alertgreen!20}{\textcolor{alertgreen}{\textbf{#1}}}}
+
+
+\begin{document}
+
+\begin{titlepage}
+    \centering
+    \vspace*{2cm}
+    
+    \rule{\textwidth}{1.5pt}
+    \vspace{0.5cm}
+    
+    {\Huge \textbf{Raport Analizy Ruchu Sieciowego}}
+    
+    \vspace{0.5cm}
+    \rule{\textwidth}{1.5pt}
+    
+    \vspace{2cm}
+    
+    {\Large System Detection as a Code}\\[0.5cm]
+    {\Large + Machine Learning + Threat Intelligence}
+    
+    \vspace{3cm}
+    
+    {\large \textbf{Autor:} System Analizy Sieciowej}\\[0.5cm]
+    {\large \textbf{Data:} 30.11.2025, 14:33}
+    
+    \vspace{2cm}
+    
+    \includegraphics[width=0.3\textwidth]{example-image}
+    
+    \vfill
+    
+    {\small Wygenerowano automatycznie przez system analizy sieciowej}
+    
+\end{titlepage}
+
+\tableofcontents
+\newpage
+
+\section{Wprowadzenie}
+
+Niniejszy raport przedstawia wyniki analizy ruchu sieciowego przeprowadzonej za pomocą zaawansowanego systemu detekcji zagrożeń. System wykorzystuje następujące komponenty:
+
+\begin{itemize}
+    \item \textbf{Analiza przepływów (Flow Analysis)} -- przetwarzanie plików PCAP przy użyciu NFStream/Scapy
+    \item \textbf{Detection as a Code} -- reguły detekcyjne w Pythonie oraz format Sigma
+    \item \textbf{Machine Learning} -- klasyfikacja przepływów przy użyciu algorytmów ML
+    \item \textbf{Threat Intelligence} -- wzbogacanie danych o informacje geolokalizacyjne i reputacyjne
+\end{itemize}
+
+\subsection{Metodologia}
+
+Analiza została przeprowadzona zgodnie z następującymi krokami:
+\begin{enumerate}
+    \item Wczytanie i parsowanie pliku PCAP
+    \item Ekstrakcja przepływów sieciowych (5-tuple)
+    \item Wykonanie reguł detekcyjnych
+    \item Klasyfikacja ML
+    \item Wzbogacenie o dane Threat Intelligence
+    \item Generowanie wizualizacji i raportu
+\end{enumerate}
+
+
+\section{Statystyki Przepływów}
+\label{sec:statistics}
+
+Ta sekcja przedstawia podstawowe statystyki analizowanego ruchu sieciowego.
+
+\subsection{Podsumowanie}
+
+\begin{table}[H]
+\centering
+\caption{Podstawowe statystyki przepływów}
+\begin{tabular}{|l|r|}
+\hline
+\rowcolor{headerblue!20}
+\textbf{Metryka} & \textbf{Wartość} \\
+\hline
+Całkowita liczba przepływów & 390 \\
+Unikalne IP źródłowe & 108 \\
+Unikalne IP docelowe & 40 \\
+Całkowita liczba pakietów & 430 \\
+Całkowita liczba bajtów & 70,332 \\
+Średnia pakietów/przepływ & 1.10 \\
+Średnia bajtów/przepływ & 180.34 \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection{Rozkład protokołów}
+
+W analizowanym ruchu wykryto następujące protokoły:
+\begin{itemize}
+    \item TCP: 270 przepływów
+    \item UDP: 119 przepływów
+    \item ICMP: 1 przepływów
+\end{itemize}
+
+\subsection{Top 5 komunikacji między hostami}
+
+\begin{table}[H]
+\centering
+\caption{Najczęściej komunikujące się pary hostów}
+\begin{tabular}{|c|l|l|r|r|}
+\hline
+\rowcolor{headerblue!20}
+\textbf{\#} & \textbf{IP Źródłowe} & \textbf{IP Docelowe} & \textbf{Pakiety} & \textbf{Bajty} \\
+\hline
+        1 & 192.168.1.88 & 8.8.8.8 & 81 & 9,430 \\
+        2 & 192.168.1.200 & 192.168.1.1 & 40 & 3,360 \\
+        3 & 192.168.1.99 & 192.168.1.20 & 30 & 1,200 \\
+        4 & 192.168.1.120 & 198.51.100.50 & 30 & 3,812 \\
+        5 & 192.168.1.50 & 203.0.113.66 & 20 & 24,751 \\
+\hline
+\end{tabular}
+\end{table}
+
+
+\section{Wykryte Zagrozenia}
+\label{sec:alerts}
+
+System detekcji zidentyfikowal \textbf{11} alertow bezpieczenstwa.
+
+\subsection{Rozklad wedlug poziomu zagrozenia}
+
+\begin{table}[H]
+\centering
+\caption{Podział alertów według severity}
+\begin{tabular}{|l|c|c|}
+\hline
+\rowcolor{headerblue!20}
+\textbf{Poziom} & \textbf{Liczba} & \textbf{Procent} \\
+\hline
+\alerthigh{HIGH/CRITICAL} & 1 & 9.1\% \\
+\alertmedium{MEDIUM} & 10 & 90.9\% \\
+\alertlow{LOW} & 0 & 0.0\% \\
+\hline
+\textbf{RAZEM} & \textbf{11} & \textbf{100\%} \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection{Lista wykrytych alertów}
+
+\begin{longtable}{|c|p{4cm}|c|p{6cm}|}
+\hline
+\rowcolor{headerblue!20}
+\textbf{\#} & \textbf{Reguła} & \textbf{Poziom} & \textbf{Wiadomość} \\
+\hline
+\endfirsthead
+\hline
+\rowcolor{headerblue!20}
+\textbf{\#} & \textbf{Regula} & \textbf{Poziom} & \textbf{Wiadomosc} \\
+\hline
+\endhead
+        1 & Port Scan Detection & \alerthigh{HIGH} & Możliwe skanowanie portów z 192.168.1.99: 30 różny \\
+        2 & Suspicious Port Connection & \alertmedium{MEDIUM} & Połączenie do podejrzanego portu: 192.168.1.75 ->  \\
+        3 & Suspicious Port Connection & \alertmedium{MEDIUM} & Połączenie do podejrzanego portu: 192.168.1.75 ->  \\
+        4 & Suspicious Port Connection & \alertmedium{MEDIUM} & Połączenie do podejrzanego portu: 192.168.1.75 ->  \\
+        5 & Suspicious Port Connection & \alertmedium{MEDIUM} & Połączenie do podejrzanego portu: 192.168.1.75 ->  \\
+        6 & Suspicious Port Connection & \alertmedium{MEDIUM} & Połączenie do podejrzanego portu: 192.168.1.75 ->  \\
+        7 & Suspicious Port Connection & \alertmedium{MEDIUM} & Połączenie do podejrzanego portu: 192.168.1.75 ->  \\
+        8 & Suspicious Port Connection & \alertmedium{MEDIUM} & Połączenie do podejrzanego portu: 192.168.1.75 ->  \\
+        9 & Suspicious Port Connection & \alertmedium{MEDIUM} & Połączenie do podejrzanego portu: 192.168.1.75 ->  \\
+        10 & Suspicious Port Connection & \alertmedium{MEDIUM} & Połączenie do podejrzanego portu: 192.168.1.75 ->  \\
+        11 & Suspicious Port Connection & \alertmedium{MEDIUM} & Połączenie do podejrzanego portu: 192.168.1.75 ->  \\
+\hline
+\end{longtable}
+
+
+\subsection{Dostepne reguly Sigma}
+
+System wykorzystuje reguly Sigma zgodne z frameworkiem MITRE ATT\&CK:
+
+\begin{table}[H]
+\centering
+\caption{Lista regul Sigma}
+\begin{tabular}{|p{6cm}|c|c|}
+\hline
+\rowcolor{headerblue!20}
+\textbf{Regula} & \textbf{Poziom} & \textbf{MITRE} \\
+\hline
+        Cobalt Strike C2 Beacon Detection & CRITICAL & 001, T1573 \\
+        Cryptocurrency Mining Communication & HIGH & T1496 \\
+        Large Data Transfer - Potential Exf & LOW & T1048, T1041 \\
+        DNS Tunneling Detection & MEDIUM & 004, T1048 \\
+        Metasploit Reverse Shell Connection & CRITICAL & T1059 \\
+        Network Port Scan Detection & MEDIUM & T1046 \\
+        RDP Brute Force Attempt Detection & HIGH & T1110, 001 \\
+        SMB Lateral Movement Detection & HIGH & 002, T1570 \\
+        SSH Connection - Potential Brute Fo & MEDIUM & 001, 004 \\
+        Tor Network Traffic Detection & MEDIUM & 003 \\
+\hline
+\end{tabular}
+\end{table}
+
+
+
+\section{Wyniki Klasyfikacji Machine Learning}
+\label{sec:ml}
+
+Model Machine Learning został wykorzystany do klasyfikacji przepływów sieciowych jako normalne lub podejrzane.
+
+\subsection{Metryki jakości modelu}
+
+\begin{table}[H]
+\centering
+\caption{Metryki wydajności klasyfikatora}
+\begin{tabular}{|l|c|l|}
+\hline
+\rowcolor{headerblue!20}
+\textbf{Metryka} & \textbf{Wartość} & \textbf{Opis} \\
+\hline
+Accuracy & 1.0000 & Ogólna dokładność \\
+Precision & 1.0000 & Precyzja (PPV) \\
+Recall (TPR) & 1.0000 & True Positive Rate \\
+F1 Score & 1.0000 & Średnia harmoniczna P i R \\
+\hline
+\rowcolor{alertred!10}
+FPR & 0.0000 & False Positive Rate \\
+TNR & 1.0000 & True Negative Rate \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection{Macierz konfuzji}
+
+\begin{table}[H]
+\centering
+\caption{Macierz konfuzji}
+\begin{tabular}{|c|c|c|}
+\hline
+\rowcolor{headerblue!20}
+ & \textbf{Pred: Normal} & \textbf{Pred: Suspicious} \\
+\hline
+\textbf{Real: Normal} & 114 (TN) & 0 (FP) \\
+\textbf{Real: Suspicious} & 0 (FN) & 3 (TP) \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection{Interpretacja}
+
+\begin{itemize}
+    \item \textbf{True Positives (TP)}: 3 -- poprawnie wykryte zagrożenia
+    \item \textbf{True Negatives (TN)}: 114 -- poprawnie sklasyfikowany normalny ruch
+    \item \textbf{False Positives (FP)}: 0 -- fałszywe alarmy (normalny ruch oznaczony jako zagrożenie)
+    \item \textbf{False Negatives (FN)}: 0 -- pominięte zagrożenia
+\end{itemize}
+
+
+\section{Threat Intelligence}
+\label{sec:threatintel}
+
+Przepływy zostały wzbogacone o dane geolokalizacyjne i informacje o reputacji adresów IP.
+
+\subsection{Top 10 krajów docelowych}
+
+\begin{table}[H]
+\centering
+\caption{Rozkład geograficzny ruchu docelowego}
+\begin{tabular}{|l|r|}
+\hline
+\rowcolor{headerblue!20}
+\textbf{Kraj} & \textbf{Liczba przepływów} \\
+\hline
+        United States & 181 \\
+        Romania & 55 \\
+        Germany & 24 \\
+        Canada & 21 \\
+        Australia & 21 \\
+        Hong Kong & 13 \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection{Źródła danych Threat Intelligence}
+
+System wykorzystuje następujące źródła danych:
+\begin{itemize}
+    \item \textbf{ip-api.com} -- geolokalizacja IP (kraj, miasto, ISP)
+    \item \textbf{AbuseIPDB} -- reputacja IP, raporty o nadużyciach (opcjonalnie)
+    \item \textbf{VirusTotal} -- analiza złośliwości IP (opcjonalnie)
+\end{itemize}
+
+
+\section{Wizualizacje}
+\label{sec:visualizations}
+
+Poniżej przedstawiono wizualizacje wyników analizy.
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{protocol_distribution.png}
+    \caption{Protocols}
+\end{figure}
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{severity_distribution.png}
+    \caption{Severity}
+\end{figure}
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{alerts_timeline.png}
+    \caption{Alerts}
+\end{figure}
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{confusion_matrix.png}
+    \caption{Confusion}
+\end{figure}
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{top_dst_ip.png}
+    \caption{Top Ips}
+\end{figure}
+
+
+
+
+\section{Podsumowanie i wnioski}
+\label{sec:summary}
+
+\subsection{Kluczowe ustalenia}
+
+\begin{enumerate}
+    \item Przeanalizowano \textbf{390} przeplywow sieciowych
+    \item Wykryto \textbf{11} alertow bezpieczenstwa, w tym \textbf{1} o wysokim priorytecie
+    \item Ruch sieciowy obejmowal \textbf{108} unikalnych zrodlowych i \textbf{40} docelowych adresow IP
+    \item Model ML osiagnal dokladnosc \textbf{100.00%}
+\end{enumerate}
+
+\subsection{Rekomendacje}
+
+Na podstawie przeprowadzonej analizy zaleca się:
+\begin{itemize}
+    \item Zbadanie alertów o wysokim priorytecie
+    \item Weryfikacja podejrzanych adresów IP w systemach SIEM
+    \item Aktualizacja reguł detekcyjnych na podstawie wykrytych wzorców
+    \item Rozważenie blokady najbardziej podejrzanych adresów IP na firewallu
+\end{itemize}
+
+\subsection{Spełnione wymagania projektowe}
+
+\begin{table}[H]
+\centering
+\caption{Lista spełnionych wymagań}
+\begin{tabular}{|c|l|c|}
+\hline
+\rowcolor{headerblue!20}
+\textbf{ID} & \textbf{Wymaganie} & \textbf{Status} \\
+\hline
+A.1 & Wczytywanie PCAP (NFStream/Scapy) & \checkmark \\
+A.2 & Statystyki przepływów & \checkmark \\
+D.1 & Reguły detekcyjne Python & \checkmark \\
+D.2 & Reguły Sigma & \checkmark \\
+ML.1 & Klasyfikacja ML & \checkmark \\
+ML.2 & Metryki FPR/TPR & \checkmark \\
+ML.3 & Trenowanie na nowych danych & \checkmark \\
+E.1 & Threat Intelligence enrichment & \checkmark \\
+V.1 & Wizualizacje alertów & \checkmark \\
+V.2 & Mapa geograficzna & \checkmark \\
+\hline
+\end{tabular}
+\end{table}
+
+
+\end{document}

@@ -1,0 +1,39 @@
+title: Network Port Scan Detection
+id: a1b2c3d4-1111-2222-3333-444455556666
+status: experimental
+description: |
+  Detects network port scanning activity. Port scanning is commonly used 
+  in the reconnaissance phase of an attack to identify open services.
+  MITRE ATT&CK: T1046 - Network Service Scanning
+author: Security Team
+date: 2024/11/30
+modified: 2024/11/30
+references:
+  - https://attack.mitre.org/techniques/T1046/
+logsource:
+  category: network
+  product: flow
+detection:
+  selection_common_scan_ports:
+    DestinationPort:
+      - 21    # FTP
+      - 22    # SSH
+      - 23    # Telnet
+      - 25    # SMTP
+      - 80    # HTTP
+      - 443   # HTTPS
+      - 445   # SMB
+      - 3389  # RDP
+      - 8080  # HTTP Proxy
+  condition: selection_common_scan_ports
+level: medium
+tags:
+  - attack.discovery
+  - attack.t1046
+falsepositives:
+  - Legitimate network scanning by security tools
+  - Network monitoring systems
+fields:
+  - src_ip
+  - dst_ip
+  - dst_port

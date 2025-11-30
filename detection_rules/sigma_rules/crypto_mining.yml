@@ -1,0 +1,35 @@
+title: Cryptocurrency Mining Communication
+id: a7b8c9d0-7777-8888-9999-000011112222
+status: experimental
+description: |
+  Detects network connections to common cryptocurrency mining pool ports.
+  Cryptojacking is a common attack where victim resources are used for mining.
+  MITRE ATT&CK: T1496 - Resource Hijacking
+author: Security Team
+date: 2024/11/30
+references:
+  - https://attack.mitre.org/techniques/T1496/
+logsource:
+  category: network
+  product: flow
+detection:
+  selection_mining_ports:
+    DestinationPort:
+      - 3333   # Stratum mining protocol
+      - 4444   # Also used for mining
+      - 8333   # Bitcoin
+      - 9999   # Mining pools
+      - 14444  # Mining pools
+  condition: selection_mining_ports
+level: high
+tags:
+  - attack.impact
+  - attack.t1496
+falsepositives:
+  - Legitimate cryptocurrency operations
+  - Blockchain development
+fields:
+  - src_ip
+  - dst_ip
+  - dst_port
+  - bidirectional_bytes

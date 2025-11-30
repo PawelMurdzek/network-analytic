@@ -346,16 +346,16 @@ W analizowanym ruchu wykryto następujące protokoły:
 """
     
     def _get_alerts_section(self, alerts: pd.DataFrame) -> str:
-        """Zwraca sekcję z alertami."""
+        """Zwraca sekcje z alertami."""
         
-        # Statystyki alertów
+        # Statystyki alertow
         severity_counts = alerts['severity'].value_counts() if 'severity' in alerts.columns else {}
         
         high_count = severity_counts.get('high', 0) + severity_counts.get('critical', 0)
         medium_count = severity_counts.get('medium', 0)
         low_count = severity_counts.get('low', 0)
         
-        # Tabela alertów (max 15)
+        # Tabela alertow (max 15)
         alerts_rows = ""
         for i, (_, alert) in enumerate(alerts.head(15).iterrows(), 1):
             rule = self._escape_latex(str(alert.get('rule', 'Unknown'))[:30])
@@ -371,13 +371,16 @@ W analizowanym ruchu wykryto następujące protokoły:
             
             alerts_rows += f"        {i} & {rule} & {severity_cmd} & {message} \\\\\n"
         
+        # Tabela regul Sigma
+        sigma_rules_table = self._get_sigma_rules_table()
+        
         return rf"""
-\section{{Wykryte Zagrożenia}}
+\section{{Wykryte Zagrozenia}}
 \label{{sec:alerts}}
 
-System detekcji zidentyfikował \textbf{{{len(alerts)}}} alertów bezpieczeństwa.
+System detekcji zidentyfikowal \textbf{{{len(alerts)}}} alertow bezpieczenstwa.
 
-\subsection{{Rozkład według poziomu zagrożenia}}
+\subsection{{Rozklad wedlug poziomu zagrozenia}}
 
 \begin{{table}}[H]
 \centering
@@ -406,12 +409,13 @@ System detekcji zidentyfikował \textbf{{{len(alerts)}}} alertów bezpieczeństw
 \endfirsthead
 \hline
 \rowcolor{{headerblue!20}}
-\textbf{{\#}} & \textbf{{Reguła}} & \textbf{{Poziom}} & \textbf{{Wiadomość}} \\
+\textbf{{\#}} & \textbf{{Regula}} & \textbf{{Poziom}} & \textbf{{Wiadomosc}} \\
 \hline
 \endhead
 {alerts_rows}\hline
 \end{{longtable}}
 
+{sigma_rules_table}
 """
     
     def _get_ml_section(self, ml_metrics: Dict) -> str:
@@ -558,6 +562,13 @@ Poniżej przedstawiono wizualizacje wyników analizy.
         if alerts is not None and 'severity' in alerts.columns:
             high_severity = len(alerts[alerts['severity'].isin(['high', 'critical'])])
         
+        # Przygotowanie linii o ML (nie mozna uzyc backslash w f-stringu)
+        if ml_metrics:
+            accuracy_pct = f"{ml_metrics.get('accuracy', 0):.2%}"
+            ml_accuracy_line = f"\\item Model ML osiagnal dokladnosc \\textbf{{{accuracy_pct}}}"
+        else:
+            ml_accuracy_line = ""
+        
         return rf"""
 \section{{Podsumowanie i wnioski}}
 \label{{sec:summary}}
@@ -565,10 +576,10 @@ Poniżej przedstawiono wizualizacje wyników analizy.
 \subsection{{Kluczowe ustalenia}}
 
 \begin{{enumerate}}
-    \item Przeanalizowano \textbf{{{stats.get('total_flows', 0):,}}} przepływów sieciowych
-    \item Wykryto \textbf{{{alerts_count}}} alertów bezpieczeństwa, w tym \textbf{{{high_severity}}} o wysokim priorytecie
-    \item Ruch sieciowy obejmował \textbf{{{stats.get('unique_src_ips', 0)}}} unikalnych źródłowych i \textbf{{{stats.get('unique_dst_ips', 0)}}} docelowych adresów IP
-    {"\\item Model ML osiągnął dokładność \\textbf{" + f"{ml_metrics.get('accuracy', 0):.2%}" + "}" if ml_metrics else ""}
+    \item Przeanalizowano \textbf{{{stats.get('total_flows', 0):,}}} przeplywow sieciowych
+    \item Wykryto \textbf{{{alerts_count}}} alertow bezpieczenstwa, w tym \textbf{{{high_severity}}} o wysokim priorytecie
+    \item Ruch sieciowy obejmowal \textbf{{{stats.get('unique_src_ips', 0)}}} unikalnych zrodlowych i \textbf{{{stats.get('unique_dst_ips', 0)}}} docelowych adresow IP
+    {ml_accuracy_line}
 \end{{enumerate}}
 
 \subsection{{Rekomendacje}}
@@ -635,6 +646,64 @@ V.2 & Mapa geograficzna & \checkmark \\
             text = text.replace(old, new)
         
         return text
+    
+    def _get_sigma_rules_table(self) -> str:
+        """Zwraca tabele z dostepnymi regulami Sigma."""
+        import yaml
+        
+        sigma_rules_dir = os.path.join(os.path.dirname(__file__), 'detection_rules', 'sigma_rules')
+        if not os.path.exists(sigma_rules_dir):
+            sigma_rules_dir = 'detection_rules/sigma_rules'
+        
+        if not os.path.exists(sigma_rules_dir):
+            return ""
+        
+        rules_info = []
+        for filename in os.listdir(sigma_rules_dir):
+            if filename.endswith('.yml'):
+                try:
+                    with open(os.path.join(sigma_rules_dir, filename), 'r', encoding='utf-8') as f:
+                        rule = yaml.safe_load(f)
+                    
+                    tags = rule.get('tags', [])
+                    mitre_tags = [t.split('.')[-1].upper() for t in tags if t.startswith('attack.t')]
+                    
+                    rules_info.append({
+                        'title': rule.get('title', 'Unknown')[:35],
+                        'level': rule.get('level', 'N/A'),
+                        'mitre': ', '.join(mitre_tags[:2]) if mitre_tags else 'N/A'
+                    })
+                except:
+                    pass
+        
+        if not rules_info:
+            return ""
+        
+        rows = ""
+        for rule in rules_info:
+            title = self._escape_latex(rule['title'])
+            level = rule['level'].upper()
+            mitre = rule['mitre']
+            rows += f"        {title} & {level} & {mitre} \\\\\n"
+        
+        return rf"""
+\subsection{{Dostepne reguly Sigma}}
+
+System wykorzystuje reguly Sigma zgodne z frameworkiem MITRE ATT\&CK:
+
+\begin{{table}}[H]
+\centering
+\caption{{Lista regul Sigma}}
+\begin{{tabular}}{{|p{{6cm}}|c|c|}}
+\hline
+\rowcolor{{headerblue!20}}
+\textbf{{Regula}} & \textbf{{Poziom}} & \textbf{{MITRE}} \\
+\hline
+{rows}\hline
+\end{{tabular}}
+\end{{table}}
+
+"""
     
     def _compile_to_pdf(self, tex_path: str) -> Optional[str]:
         """Kompiluje plik .tex do PDF używając pdflatex."""

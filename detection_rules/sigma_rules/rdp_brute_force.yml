@@ -1,0 +1,33 @@
+title: RDP Brute Force Attempt Detection
+id: f6a7b8c9-6666-7777-8888-999900001111
+status: experimental
+description: |
+  Detects RDP (Remote Desktop Protocol) connections which may indicate 
+  brute force attacks or unauthorized remote access attempts.
+  MITRE ATT&CK: T1110 - Brute Force
+author: Security Team
+date: 2024/11/30
+references:
+  - https://attack.mitre.org/techniques/T1110/
+  - https://attack.mitre.org/techniques/T1021/001/
+logsource:
+  category: network
+  product: flow
+detection:
+  selection_rdp:
+    DestinationPort: 3389
+  condition: selection_rdp
+level: high
+tags:
+  - attack.credential_access
+  - attack.t1110
+  - attack.lateral_movement
+  - attack.t1021.001
+falsepositives:
+  - Legitimate remote desktop connections
+  - System administrators
+  - Remote support
+fields:
+  - src_ip
+  - dst_ip
+  - bidirectional_packets

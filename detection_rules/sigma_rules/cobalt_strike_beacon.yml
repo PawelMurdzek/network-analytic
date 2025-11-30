@@ -1,0 +1,34 @@
+title: Cobalt Strike C2 Beacon Detection
+id: b2c3d4e5-2222-3333-4444-555566667777
+status: experimental
+description: |
+  Detects potential Cobalt Strike beacon communication patterns.
+  Cobalt Strike is a commercial penetration testing tool often abused by attackers.
+  Common beacon ports include 80, 443, and 8443.
+  MITRE ATT&CK: T1071.001 - Application Layer Protocol: Web Protocols
+author: Security Team
+date: 2024/11/30
+references:
+  - https://attack.mitre.org/techniques/T1071/001/
+  - https://www.cobaltstrike.com/
+logsource:
+  category: network
+  product: flow
+detection:
+  selection_cs_ports:
+    DestinationPort:
+      - 50050  # Default Cobalt Strike team server
+      - 8443   # Common HTTPS beacon
+  condition: selection_cs_ports
+level: critical
+tags:
+  - attack.command_and_control
+  - attack.t1071.001
+  - attack.t1573
+falsepositives:
+  - Legitimate web applications on non-standard ports
+fields:
+  - src_ip
+  - dst_ip
+  - dst_port
+  - bidirectional_bytes

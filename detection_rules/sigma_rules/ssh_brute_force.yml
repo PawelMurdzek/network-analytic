@@ -1,0 +1,33 @@
+title: SSH Connection - Potential Brute Force
+id: d0e1f2a3-0000-1111-2222-333344445555
+status: experimental
+description: |
+  Detects SSH connections which may indicate brute force login attempts
+  or unauthorized access to servers.
+  MITRE ATT&CK: T1110.001 - Brute Force: Password Guessing
+author: Security Team
+date: 2024/11/30
+references:
+  - https://attack.mitre.org/techniques/T1110/001/
+  - https://attack.mitre.org/techniques/T1021/004/
+logsource:
+  category: network
+  product: flow
+detection:
+  selection_ssh:
+    DestinationPort: 22
+  condition: selection_ssh
+level: medium
+tags:
+  - attack.credential_access
+  - attack.t1110.001
+  - attack.lateral_movement
+  - attack.t1021.004
+falsepositives:
+  - Legitimate SSH administration
+  - Automated deployment tools
+  - CI/CD pipelines
+fields:
+  - src_ip
+  - dst_ip
+  - bidirectional_packets

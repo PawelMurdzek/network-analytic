@@ -1,0 +1,36 @@
+title: Tor Network Traffic Detection
+id: b8c9d0e1-8888-9999-0000-111122223333
+status: experimental
+description: |
+  Detects connections to Tor network entry/exit nodes.
+  Tor can be used for legitimate privacy purposes but also for malicious activities.
+  MITRE ATT&CK: T1090.003 - Proxy: Multi-hop Proxy
+author: Security Team
+date: 2024/11/30
+references:
+  - https://attack.mitre.org/techniques/T1090/003/
+  - https://www.torproject.org/
+logsource:
+  category: network
+  product: flow
+detection:
+  selection_tor_ports:
+    DestinationPort:
+      - 9001   # Tor relay port
+      - 9030   # Tor directory port
+      - 9050   # Tor SOCKS proxy
+      - 9051   # Tor control port
+      - 9150   # Tor Browser default
+  condition: selection_tor_ports
+level: medium
+tags:
+  - attack.command_and_control
+  - attack.t1090.003
+  - attack.defense_evasion
+falsepositives:
+  - Legitimate Tor usage for privacy
+  - Security research
+fields:
+  - src_ip
+  - dst_ip
+  - dst_port

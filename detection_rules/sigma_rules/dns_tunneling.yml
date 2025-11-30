@@ -1,0 +1,34 @@
+title: DNS Tunneling Detection
+id: d4e5f6a7-4444-5555-6666-777788889999
+status: experimental
+description: |
+  Detects potential DNS tunneling based on unusual DNS traffic patterns.
+  DNS tunneling can be used for data exfiltration or C2 communication.
+  MITRE ATT&CK: T1071.004 - Application Layer Protocol: DNS
+author: Security Team
+date: 2024/11/30
+references:
+  - https://attack.mitre.org/techniques/T1071/004/
+  - https://attack.mitre.org/techniques/T1048/
+logsource:
+  category: network
+  product: flow
+detection:
+  selection_dns:
+    DestinationPort: 53
+  condition: selection_dns
+level: medium
+tags:
+  - attack.command_and_control
+  - attack.t1071.004
+  - attack.exfiltration
+  - attack.t1048
+falsepositives:
+  - Legitimate DNS queries
+  - DNS-based load balancing
+  - CDN DNS traffic
+fields:
+  - src_ip
+  - dst_ip
+  - bidirectional_bytes
+  - bidirectional_packets

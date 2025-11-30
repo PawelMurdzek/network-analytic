@@ -1,0 +1,37 @@
+title: Large Data Transfer - Potential Exfiltration
+id: c9d0e1f2-9999-0000-1111-222233334444
+status: experimental
+description: |
+  Detects large data transfers that may indicate data exfiltration.
+  This rule focuses on common exfiltration channels like HTTPS and FTP.
+  MITRE ATT&CK: T1048 - Exfiltration Over Alternative Protocol
+author: Security Team
+date: 2024/11/30
+references:
+  - https://attack.mitre.org/techniques/T1048/
+  - https://attack.mitre.org/techniques/T1041/
+logsource:
+  category: network
+  product: flow
+detection:
+  selection_exfil_ports:
+    DestinationPort:
+      - 21    # FTP
+      - 22    # SFTP/SCP
+      - 443   # HTTPS (encrypted exfil)
+      - 8443  # Alternative HTTPS
+  condition: selection_exfil_ports
+level: low
+tags:
+  - attack.exfiltration
+  - attack.t1048
+  - attack.t1041
+falsepositives:
+  - Legitimate large file transfers
+  - Cloud backup services
+  - Software updates
+fields:
+  - src_ip
+  - dst_ip
+  - dst_port
+  - bidirectional_bytes
