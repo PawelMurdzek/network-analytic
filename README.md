@@ -355,7 +355,7 @@ viz.create_geo_map(enriched_flows)   # V.2
 
 ---
 
-## 🛠️ Rozszerzenia
+## Rozszerzenia
 
 ### Dodawanie własnych reguł detekcyjnych
 
@@ -395,7 +395,7 @@ detection:
 
 ---
 
-## 📝 Uwagi
+## Uwagi
 
 1. **Enrichment IP** może być wolny - API mają limity zapytań
 2. **Mapa geograficzna** wymaga biblioteki `folium`
