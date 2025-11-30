@@ -82,7 +82,7 @@
     \vspace{3cm}
     
     {\large \textbf{Autor:} System Analizy Sieciowej}\\[0.5cm]
-    {\large \textbf{Data:} 30.11.2025, 14:35}
+    {\large \textbf{Data:} 30.11.2025, 14:47}
     
     \vspace{2cm}
     
@@ -137,12 +137,12 @@ Ta sekcja przedstawia podstawowe statystyki analizowanego ruchu sieciowego.
 \textbf{Metryka} & \textbf{Wartość} \\
 \hline
 Całkowita liczba przepływów & 391 \\
-Unikalne IP źródłowe & 108 \\
-Unikalne IP docelowe & 40 \\
+Unikalne IP źródłowe & 106 \\
+Unikalne IP docelowe & 42 \\
 Całkowita liczba pakietów & 430 \\
-Całkowita liczba bajtów & 71,050 \\
+Całkowita liczba bajtów & 71,102 \\
 Średnia pakietów/przepływ & 1.10 \\
-Średnia bajtów/przepływ & 181.71 \\
+Średnia bajtów/przepływ & 181.85 \\
 \hline
 \end{tabular}
 \end{table}
@@ -166,11 +166,11 @@ W analizowanym ruchu wykryto następujące protokoły:
 \rowcolor{headerblue!20}
 \textbf{\#} & \textbf{IP Źródłowe} & \textbf{IP Docelowe} & \textbf{Pakiety} & \textbf{Bajty} \\
 \hline
-        1 & 192.168.1.88 & 8.8.8.8 & 80 & 9,297 \\
+        1 & 192.168.1.88 & 8.8.8.8 & 80 & 9,269 \\
         2 & 192.168.1.200 & 192.168.1.1 & 40 & 3,360 \\
         3 & 192.168.1.99 & 192.168.1.20 & 30 & 1,200 \\
         4 & 192.168.1.120 & 198.51.100.50 & 30 & 3,812 \\
-        5 & 192.168.1.50 & 203.0.113.66 & 20 & 26,081 \\
+        5 & 192.168.1.50 & 203.0.113.66 & 20 & 26,117 \\
 \hline
 \end{tabular}
 \end{table}
@@ -246,6 +246,7 @@ System wykorzystuje reguly Sigma zgodne z frameworkiem MITRE ATT\&CK:
 \hline
         Cobalt Strike C2 Beacon Detection & CRITICAL & 001, T1573 \\
         Cryptocurrency Mining Communication & HIGH & T1496 \\
+        Custom Backdoor Port Detection & CRITICAL & T1095 \\
         Large Data Transfer - Potential Exf & LOW & T1048, T1041 \\
         DNS Tunneling Detection & MEDIUM & 004, T1048 \\
         Metasploit Reverse Shell Connection & CRITICAL & T1059 \\
@@ -328,12 +329,12 @@ Przepływy zostały wzbogacone o dane geolokalizacyjne i informacje o reputacji 
 \rowcolor{headerblue!20}
 \textbf{Kraj} & \textbf{Liczba przepływów} \\
 \hline
-        United States & 181 \\
+        United States & 185 \\
         Romania & 55 \\
-        Germany & 27 \\
-        Australia & 21 \\
-        Canada & 20 \\
-        Hong Kong & 12 \\
+        Canada & 28 \\
+        Germany & 19 \\
+        Hong Kong & 17 \\
+        Australia & 12 \\
 \hline
 \end{tabular}
 \end{table}
@@ -399,7 +400,7 @@ Poniżej przedstawiono wizualizacje wyników analizy.
 \begin{enumerate}
     \item Przeanalizowano \textbf{391} przeplywow sieciowych
     \item Wykryto \textbf{21} alertow bezpieczenstwa, w tym \textbf{11} o wysokim priorytecie
-    \item Ruch sieciowy obejmowal \textbf{108} unikalnych zrodlowych i \textbf{40} docelowych adresow IP
+    \item Ruch sieciowy obejmowal \textbf{106} unikalnych zrodlowych i \textbf{42} docelowych adresow IP
     \item Model ML osiagnal dokladnosc \textbf{100.00%}
 \end{enumerate}
 

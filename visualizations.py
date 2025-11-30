@@ -227,29 +227,32 @@ class NetworkVisualizer:
         save_path: Optional[str] = None
     ) -> str:
         """
-        Wykres rozkładu protokołów.
+        Wykres rozkladu protokolow.
         
         Args:
-            flows_df: DataFrame z przepływami
-            save_path: Ścieżka do zapisu
+            flows_df: DataFrame z przeplywami
+            save_path: Sciezka do zapisu
             
         Returns:
-            Ścieżka do zapisanego pliku
+            Sciezka do zapisanego pliku
         """
         plt.figure(figsize=(10, 6))
         
         protocol_counts = flows_df['protocol'].value_counts()
         
-        # Mapowanie numerów protokołów na nazwy
+        # Mapowanie numerow protokolow na nazwy
         protocol_names = {6: 'TCP', 17: 'UDP', 1: 'ICMP'}
-        labels = [f"{protocol_names.get(p, f'Protocol {p}')} ({p})" 
-                 for p in protocol_counts.index]
         
-        plt.pie(protocol_counts.values, labels=labels,
+        # Tworzymy listy w tej samej kolejnosci
+        protocols = protocol_counts.index.tolist()
+        values = protocol_counts.values.tolist()
+        labels = [f"{protocol_names.get(p, f'Protocol {p}')} ({p})" for p in protocols]
+        
+        plt.pie(values, labels=labels,
                autopct='%1.1f%%', startangle=90,
-               colors=sns.color_palette('Set3'))
+               colors=sns.color_palette('Set3', len(values)))
         
-        plt.title('Rozkład protokołów w ruchu sieciowym', 
+        plt.title('Rozklad protokolow w ruchu sieciowym', 
                  fontsize=14, fontweight='bold')
         plt.tight_layout()
         

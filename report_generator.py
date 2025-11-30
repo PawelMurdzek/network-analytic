@@ -500,12 +500,17 @@ class ReportGenerator:
         alerts: Optional[pd.DataFrame],
         ml_metrics: Optional[Dict]
     ) -> str:
-        """Buduje sekcję z podsumowaniem spełnionych wymagań."""
-        html = """
+        """Buduje sekcje z podsumowaniem spelnionych wymagan."""
+        
+        # Dynamiczne statusy
+        ml_status = "Spelnione" if ml_metrics else "Niepelne"
+        ml_fpr_status = "Spelnione" if ml_metrics and 'fpr' in ml_metrics else "Niepelne"
+        
+        html = f"""
         <div class="section">
-            <h2>Podsumowanie Spełnionych Wymagań</h2>
+            <h2>Podsumowanie Spelnionych Wymagan</h2>
             
-            <h3>Lab 2 - Funkcjonalności Podstawowe (Must-have)</h3>
+            <h3>Lab 2 - Funkcjonalnosci Podstawowe (Must-have)</h3>
             <table>
                 <thead>
                     <tr>
@@ -517,28 +522,28 @@ class ReportGenerator:
                 <tbody>
                     <tr>
                         <td><strong>A.1</strong></td>
-                        <td>Wczytywanie plików PCAP przy użyciu NFStream</td>
-                        <td>Spełnione</td>
+                        <td>Wczytywanie plikow PCAP przy uzyciu NFStream/Scapy</td>
+                        <td>Spelnione</td>
                     </tr>
                     <tr>
                         <td><strong>A.2</strong></td>
                         <td>Podsumowanie statystyk flow</td>
-                        <td>Spełnione</td>
+                        <td>Spelnione</td>
                     </tr>
                     <tr>
                         <td><strong>D.1</strong></td>
-                        <td>Implementacja reguł detekcyjnych w Pythonie</td>
-                        <td>Spełnione</td>
+                        <td>Implementacja regul detekcyjnych w Pythonie</td>
+                        <td>Spelnione</td>
                     </tr>
                     <tr>
                         <td><strong>V.1</strong></td>
-                        <td>Wykres liczby wykrytych zagrożeń</td>
-                        <td>Spełnione</td>
+                        <td>Wykres liczby wykrytych zagrozen</td>
+                        <td>Spelnione</td>
                     </tr>
                 </tbody>
             </table>
             
-            <h3>Projekt 2 - Funkcjonalności Zaawansowane (Must-have)</h3>
+            <h3>Projekt 2 - Funkcjonalnosci Zaawansowane (Must-have)</h3>
             <table>
                 <thead>
                     <tr>
@@ -550,28 +555,28 @@ class ReportGenerator:
                 <tbody>
                     <tr>
                         <td><strong>D.2</strong></td>
-                        <td>Wczytywanie reguł w formacie Sigma</td>
-                        <td>Spełnione</td>
+                        <td>Wczytywanie regul w formacie Sigma (10 regul MITRE ATT&CK)</td>
+                        <td>Spelnione</td>
                     </tr>
                     <tr>
                         <td><strong>ML.1</strong></td>
-                        <td>Klasyfikacja flow za pomocą ML</td>
-                        <td>{'Spełnione' if ml_metrics else 'Niepełne'}</td>
+                        <td>Klasyfikacja flow za pomoca ML</td>
+                        <td>{ml_status}</td>
                     </tr>
                     <tr>
                         <td><strong>ML.2</strong></td>
-                        <td>Redukcja FPR, metryki jakości (FPR, TPR)</td>
-                        <td>{'Spełnione' if ml_metrics and 'fpr' in ml_metrics else 'Niepełne'}</td>
+                        <td>Redukcja FPR, metryki jakosci (FPR, TPR)</td>
+                        <td>{ml_fpr_status}</td>
                     </tr>
                     <tr>
                         <td><strong>ML.3</strong></td>
-                        <td>Możliwość trenowania modelu na nowych danych</td>
-                        <td>Spełnione</td>
+                        <td>Mozliwosc trenowania modelu na nowych danych</td>
+                        <td>Spelnione</td>
                     </tr>
                     <tr>
                         <td><strong>E.1</strong></td>
                         <td>Enrichment IP/domen (Threat Intelligence)</td>
-                        <td>Spełnione</td>
+                        <td>Spelnione</td>
                     </tr>
                 </tbody>
             </table>

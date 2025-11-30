@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Raport Analizy Sieciowej - 2025-11-30 14:25:41</title>
+    <title>Raport Analizy Sieciowej - 2025-11-30 14:47:49</title>
     <style>
         * {
             margin: 0;
@@ -195,7 +195,7 @@
         <div class="header">
             <h1>Raport Analizy Sieciowej</h1>
             <p>System Detection as a Code + ML + Threat Intelligence</p>
-            <p>2025-11-30 14:25:41</p>
+            <p>2025-11-30 14:47:49</p>
         </div>
         
         <div class="content">
@@ -207,17 +207,17 @@
 
                 <div class="stat-card">
                     <h4>Całkowita liczba przepływów</h4>
-                    <div class="value">390</div>
+                    <div class="value">391</div>
                 </div>
 
                 <div class="stat-card">
                     <h4>Unikalne IP źródłowe</h4>
-                    <div class="value">108</div>
+                    <div class="value">106</div>
                 </div>
 
                 <div class="stat-card">
                     <h4>Unikalne IP docelowe</h4>
-                    <div class="value">40</div>
+                    <div class="value">42</div>
                 </div>
 
                 <div class="stat-card">
@@ -227,7 +227,7 @@
 
                 <div class="stat-card">
                     <h4>Całkowita liczba bajtów</h4>
-                    <div class="value">70,332</div>
+                    <div class="value">71,102</div>
                 </div>
 
                 <div class="stat-card">
@@ -255,8 +255,8 @@
                         <td>1</td>
                         <td>192.168.1.88</td>
                         <td>8.8.8.8</td>
-                        <td>81</td>
-                        <td>9,430</td>
+                        <td>80</td>
+                        <td>9,269</td>
                         <td>80</td>
                     </tr>
 
@@ -292,7 +292,7 @@
                         <td>192.168.1.50</td>
                         <td>203.0.113.66</td>
                         <td>20</td>
-                        <td>24,751</td>
+                        <td>26,117</td>
                         <td>20</td>
                     </tr>
 
@@ -303,13 +303,19 @@
         <div class="section">
             <h2>Wykryte Zagrozenia <span class="requirement-tag">D.1</span> <span class="requirement-tag">D.2</span> <span class="requirement-tag">V.1</span></h2>
             
-            <p>Łączna liczba alertów: <strong>11</strong></p>
+            <p>Laczna liczba alertow: <strong>21</strong></p>
+            <p>Alerty Python rules: <strong>20</strong> | Alerty Sigma rules: <strong>21</strong></p>
             
-            <h3>Rozkład według poziomu zagrożenia</h3>
+            <h3>Rozklad wedlug poziomu zagrozenia</h3>
             <div class="stats-grid">
 
                 <div class="stat-card">
                     <h4>MEDIUM</h4>
+                    <div class="value">10</div>
+                </div>
+
+                <div class="stat-card">
+                    <h4>CRITICAL</h4>
                     <div class="value">10</div>
                 </div>
 
@@ -397,6 +403,87 @@
                         <td>Połączenie do podejrzanego portu: 192.168.1.75 -> 203.0.113.100:4444</td>
                     </tr>
 
+                    <tr class="alert-critical">
+                        <td><strong>Metasploit Reverse Shell Connection</strong></td>
+                        <td>CRITICAL</td>
+                        <td>Detects connections to port 4444, the default port for Metasploit 
+reverse shell payloads. This is a strong indicator of compromise.
+MITRE ATT&CK: T1059 - Command and Scripting Interpreter
+</td>
+                    </tr>
+
+                    <tr class="alert-critical">
+                        <td><strong>Metasploit Reverse Shell Connection</strong></td>
+                        <td>CRITICAL</td>
+                        <td>Detects connections to port 4444, the default port for Metasploit 
+reverse shell payloads. This is a strong indicator of compromise.
+MITRE ATT&CK: T1059 - Command and Scripting Interpreter
+</td>
+                    </tr>
+
+                    <tr class="alert-critical">
+                        <td><strong>Metasploit Reverse Shell Connection</strong></td>
+                        <td>CRITICAL</td>
+                        <td>Detects connections to port 4444, the default port for Metasploit 
+reverse shell payloads. This is a strong indicator of compromise.
+MITRE ATT&CK: T1059 - Command and Scripting Interpreter
+</td>
+                    </tr>
+
+                    <tr class="alert-critical">
+                        <td><strong>Metasploit Reverse Shell Connection</strong></td>
+                        <td>CRITICAL</td>
+                        <td>Detects connections to port 4444, the default port for Metasploit 
+reverse shell payloads. This is a strong indicator of compromise.
+MITRE ATT&CK: T1059 - Command and Scripting Interpreter
+</td>
+                    </tr>
+
+                    <tr class="alert-critical">
+                        <td><strong>Metasploit Reverse Shell Connection</strong></td>
+                        <td>CRITICAL</td>
+                        <td>Detects connections to port 4444, the default port for Metasploit 
+reverse shell payloads. This is a strong indicator of compromise.
+MITRE ATT&CK: T1059 - Command and Scripting Interpreter
+</td>
+                    </tr>
+
+                    <tr class="alert-critical">
+                        <td><strong>Metasploit Reverse Shell Connection</strong></td>
+                        <td>CRITICAL</td>
+                        <td>Detects connections to port 4444, the default port for Metasploit 
+reverse shell payloads. This is a strong indicator of compromise.
+MITRE ATT&CK: T1059 - Command and Scripting Interpreter
+</td>
+                    </tr>
+
+                    <tr class="alert-critical">
+                        <td><strong>Metasploit Reverse Shell Connection</strong></td>
+                        <td>CRITICAL</td>
+                        <td>Detects connections to port 4444, the default port for Metasploit 
+reverse shell payloads. This is a strong indicator of compromise.
+MITRE ATT&CK: T1059 - Command and Scripting Interpreter
+</td>
+                    </tr>
+
+                    <tr class="alert-critical">
+                        <td><strong>Metasploit Reverse Shell Connection</strong></td>
+                        <td>CRITICAL</td>
+                        <td>Detects connections to port 4444, the default port for Metasploit 
+reverse shell payloads. This is a strong indicator of compromise.
+MITRE ATT&CK: T1059 - Command and Scripting Interpreter
+</td>
+                    </tr>
+
+                    <tr class="alert-critical">
+                        <td><strong>Metasploit Reverse Shell Connection</strong></td>
+                        <td>CRITICAL</td>
+                        <td>Detects connections to port 4444, the default port for Metasploit 
+reverse shell payloads. This is a strong indicator of compromise.
+MITRE ATT&CK: T1059 - Command and Scripting Interpreter
+</td>
+                    </tr>
+
                 </tbody>
             </table>
         </div>
@@ -468,9 +555,9 @@
         </div>
 
         <div class="section">
-            <h2>Podsumowanie Spełnionych Wymagań</h2>
+            <h2>Podsumowanie Spelnionych Wymagan</h2>
             
-            <h3>Lab 2 - Funkcjonalności Podstawowe (Must-have)</h3>
+            <h3>Lab 2 - Funkcjonalnosci Podstawowe (Must-have)</h3>
             <table>
                 <thead>
                     <tr>
@@ -482,28 +569,28 @@
                 <tbody>
                     <tr>
                         <td><strong>A.1</strong></td>
-                        <td>Wczytywanie plików PCAP przy użyciu NFStream</td>
-                        <td>Spełnione</td>
+                        <td>Wczytywanie plikow PCAP przy uzyciu NFStream/Scapy</td>
+                        <td>Spelnione</td>
                     </tr>
                     <tr>
                         <td><strong>A.2</strong></td>
                         <td>Podsumowanie statystyk flow</td>
-                        <td>Spełnione</td>
+                        <td>Spelnione</td>
                     </tr>
                     <tr>
                         <td><strong>D.1</strong></td>
-                        <td>Implementacja reguł detekcyjnych w Pythonie</td>
-                        <td>Spełnione</td>
+                        <td>Implementacja regul detekcyjnych w Pythonie</td>
+                        <td>Spelnione</td>
                     </tr>
                     <tr>
                         <td><strong>V.1</strong></td>
-                        <td>Wykres liczby wykrytych zagrożeń</td>
-                        <td>Spełnione</td>
+                        <td>Wykres liczby wykrytych zagrozen</td>
+                        <td>Spelnione</td>
                     </tr>
                 </tbody>
             </table>
             
-            <h3>Projekt 2 - Funkcjonalności Zaawansowane (Must-have)</h3>
+            <h3>Projekt 2 - Funkcjonalnosci Zaawansowane (Must-have)</h3>
             <table>
                 <thead>
                     <tr>
@@ -515,28 +602,28 @@
                 <tbody>
                     <tr>
                         <td><strong>D.2</strong></td>
-                        <td>Wczytywanie reguł w formacie Sigma</td>
-                        <td>Spełnione</td>
+                        <td>Wczytywanie regul w formacie Sigma (10 regul MITRE ATT&CK)</td>
+                        <td>Spelnione</td>
                     </tr>
                     <tr>
                         <td><strong>ML.1</strong></td>
-                        <td>Klasyfikacja flow za pomocą ML</td>
-                        <td>{'Spełnione' if ml_metrics else 'Niepełne'}</td>
+                        <td>Klasyfikacja flow za pomoca ML</td>
+                        <td>Spelnione</td>
                     </tr>
                     <tr>
                         <td><strong>ML.2</strong></td>
-                        <td>Redukcja FPR, metryki jakości (FPR, TPR)</td>
-                        <td>{'Spełnione' if ml_metrics and 'fpr' in ml_metrics else 'Niepełne'}</td>
+                        <td>Redukcja FPR, metryki jakosci (FPR, TPR)</td>
+                        <td>Spelnione</td>
                     </tr>
                     <tr>
                         <td><strong>ML.3</strong></td>
-                        <td>Możliwość trenowania modelu na nowych danych</td>
-                        <td>Spełnione</td>
+                        <td>Mozliwosc trenowania modelu na nowych danych</td>
+                        <td>Spelnione</td>
                     </tr>
                     <tr>
                         <td><strong>E.1</strong></td>
                         <td>Enrichment IP/domen (Threat Intelligence)</td>
-                        <td>Spełnione</td>
+                        <td>Spelnione</td>
                     </tr>
                 </tbody>
             </table>
