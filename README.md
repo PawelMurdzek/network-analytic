@@ -404,7 +404,7 @@ detection:
 
 ---
 
-## 📚 Dokumentacja modułów
+## Dokumentacja modułów
 
 ### flow_analyzer.py
 Analiza przepływów sieciowych z NFStream
